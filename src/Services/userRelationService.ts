@@ -1,5 +1,4 @@
-import { UserRelationDao } from "../Dao/userRelationDao";
-import { UserDao } from "../Dao/userDao";
+import { UserRelationDao, UserDao } from "../Dao";
 import { UserRelationIds, RelationType } from "../Utils/Types";
 import { Response } from "../Utils/Response";
 

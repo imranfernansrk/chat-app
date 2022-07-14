@@ -3,7 +3,8 @@ import UserRoutes from "./userRoutes";
 import PersonalInfoRoutes from "./personalInfoRoutes";
 import PostRoutes from "./postRoutes";
 import UserRelationRoutes from "./userRelationRoutes";
-class Routes {
+
+export default class Routes {
     private userRoutes: UserRoutes;
     private personalInfoRoutes: PersonalInfoRoutes;
     private postRoutes: PostRoutes;
@@ -22,5 +23,3 @@ class Routes {
         this.userRelationRoutes.initialRoutes(application);
     }
 }
-
-export default Routes;

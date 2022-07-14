@@ -1,4 +1,4 @@
-import { PersonalInfoDao } from "../Dao/personalInfoDao";
+import { PersonalInfoDao } from "../Dao";
 import { PersonalInfo } from "../Utils/Types";
 import { Response } from "../Utils/Response";
 

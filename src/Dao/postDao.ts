@@ -1,4 +1,4 @@
-import PostModel from "../Models/Posts";
+import { PostModel } from "../Models";
 import { Post } from '../Utils/Types'
 
 export class PostDao {

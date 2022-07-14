@@ -1,6 +1,4 @@
-// @ts-check
-
-import UserRelationModel from "../Models/UsersRelation";
+import { UserRelationModel } from "../Models";
 import { RelationType, UserRelation, UserRelationIds } from '../Utils/Types'
 
 export class UserRelationDao {

@@ -1,8 +1,8 @@
-import { UserDao } from "../Dao/userDao";
-import { User, UserPassword } from "../Utils/Types";
+import { UserDao } from "../Dao";
+import { PersonalInfoService } from "../Services";
+import { User } from "../Utils/Types";
 import { Response } from "../Utils/Response";
 import { checkPassword, hashPassword } from '../Utils/generateHasPassword';
-import PersonalInfoService from "./personalInfoService";
 import jwt from 'jsonwebtoken'
 
 export default class UserService {

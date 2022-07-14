@@ -1,4 +1,4 @@
-import UserModel from "../Models/Users";
+import { UserModel } from "../Models";
 import { User, UserPassword } from '../Utils/Types'
 
 export class UserDao {

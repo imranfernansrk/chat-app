@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import PostService from '../Services/postService';
+import { PostService } from '../Services';
 import { Post } from '../Utils/Types'
 
 const postService = new PostService();
 
-export default class UserRelationController {
+export default class PostController {
     public async createPost(req: Request, res: Response): Promise<void> {
         const body: Post = req.body
         const result = await postService.createPost(body);

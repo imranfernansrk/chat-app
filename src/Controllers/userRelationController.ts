@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import UserRelationService from '../Services/userRelationService';
+import { UserRelationService } from '../Services';
 import { UserRelationIds } from '../Utils/Types'
 
 const userRelationService = new UserRelationService();

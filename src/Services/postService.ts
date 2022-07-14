@@ -1,6 +1,4 @@
-import { PostDao } from "../Dao/postDao";
-import { UserDao } from "../Dao/userDao";
-import { UserRelationDao } from "../Dao/userRelationDao";
+import { PostDao, UserDao, UserRelationDao } from "../Dao";
 import { Post } from "../Utils/Types";
 import { Response } from "../Utils/Response";
 
