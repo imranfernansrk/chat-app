@@ -16,6 +16,7 @@ class UserRoutes {
             res.send('Success')
         });
         application.route('/createUser').post(this.userController.createUser);
+        application.route('/createAdminUser').post(this.userController.createAdminUser);
         application.route('/signin').post(this.userController.signin);
         application.route('/updatePassword/:id').put(this.auth.checkValidUser, this.userController.updatePassword);
         application.route('/deleteUser/:id').delete(this.auth.checkValidUser, this.userController.deleteUser);

@@ -1,6 +1,6 @@
 import { UserDao } from "../Dao";
 import { PersonalInfoService } from "../Services";
-import { User } from "../Utils/Types";
+import { User, UserRoles } from "../Utils/Types";
 import { Response } from "../Utils/Response";
 import { checkPassword, hashPassword } from '../Utils/generateHasPassword';
 import jwt from 'jsonwebtoken'
@@ -13,6 +13,38 @@ export default class UserService {
         this.personalInfoService = new PersonalInfoService();
     }
 
+    public async createAdminUser(data: User): Promise<any> {
+        console.log('createAdminUser service input', data);
+        try {
+            let existingUser = await this.userDao.getUserByUsername(data.username);
+            console.log('check existingUser', existingUser);    
+            if (existingUser && existingUser._id) {
+                console.log('return from createAdminUser service', existingUser);
+                return Response.badRequest('Username already exists');
+            }
+            const hashedPassword = await hashPassword(data.password);
+            const role = UserRoles.user;
+            const newUser = await this.userDao.createUser({
+                ...data,
+                password: hashedPassword,
+                role: role,
+            });
+            console.log('return of createAdminUser method', newUser);
+            const token = jwt.sign({
+                expiresIn: "3h",
+                user: newUser._id,
+                role: newUser.role,
+            }, process.env.ACCESS_TOKEN_SECRET_KEY);
+            console.log('createAdminUser token', token);
+            delete newUser.password;
+            console.log('return from createAdminUser service', Object.assign(newUser, token));
+            return Response.success(Object.assign(newUser, token));
+        } catch (error) {
+            console.log('return from createUser service', error);
+            return Response.badRequest(error);
+        }
+    }
+
     public async createUser(data: User): Promise<any> {
         console.log('createUser service input', data);
         try {
@@ -23,14 +55,17 @@ export default class UserService {
                 return Response.badRequest('Username already exists');
             }
             const hashedPassword = await hashPassword(data.password);
+            const role = UserRoles.user;
             const newUser = await this.userDao.createUser({
                 ...data,
                 password: hashedPassword,
+                role: role,
             });
             console.log('return of createUser method', newUser);
             const token = jwt.sign({
                 expiresIn: "3h",
-                user: newUser._id
+                user: newUser._id,
+                role: newUser.role,
             }, process.env.ACCESS_TOKEN_SECRET_KEY);
             console.log('createUser token', token);
             delete newUser.password;

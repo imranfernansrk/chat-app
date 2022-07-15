@@ -5,6 +5,11 @@ import { User } from '../Utils/Types'
 const userService = new UserService();
 
 export default class UserController {
+    public async createAdminUser(req: Request, res: Response): Promise<void> {
+        const body: User = req.body
+        const data = await userService.createAdminUser(body);
+        res.status(data.statusCode).json(data);
+    }
     public async createUser(req: Request, res: Response): Promise<void> {
         const body: User = req.body
         const data = await userService.createUser(body);

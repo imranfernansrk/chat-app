@@ -1,15 +1,30 @@
+export enum UserRoles { 
+  admin = 'Admin',
+  user = 'User' 
+};
+
 export interface User {
   username: string,
   email: string,
   password: string,
+  role: UserRoles,
 }
 
 export interface UserPassword {
   password: string,
 }
 
-export enum Gender {'Male', 'Female', 'Others'};
-export enum Status {'Single', 'In Relationship', 'Not Interested'};
+export enum Gender {
+  male = 'Male',
+  female = 'Female',
+  others = 'Others'
+};
+
+export enum Status {
+  single = 'Single',
+  inRelationship = 'In Relationship',
+  notInterested = 'Not Interested'
+};
 
 export interface PersonalInfo {
   id: string,

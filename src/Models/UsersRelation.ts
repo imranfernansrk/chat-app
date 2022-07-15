@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import { RelationType } from '../Utils/Types';
 
 const UsersRelationSchema: Schema = new mongoose.Schema({
     followerId: {
@@ -7,6 +8,7 @@ const UsersRelationSchema: Schema = new mongoose.Schema({
     },
     type: {
         type: String,
+        enum: RelationType,
         required: true
     }
 })

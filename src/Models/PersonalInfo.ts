@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import { Gender, Status } from '../Utils/Types';
 
 const PersonalInfoSchema: Schema = new mongoose.Schema({
     fullName: {
@@ -11,10 +12,12 @@ const PersonalInfoSchema: Schema = new mongoose.Schema({
     },
     gender: {
         type: String,
+        enum: Gender,
         required: true
     },
     status: {
         type: String,
+        enum: Status,
         required: true
     }
 })
