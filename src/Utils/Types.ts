@@ -1,6 +1,6 @@
-export enum UserRoles { 
+export enum UserRoles {
   admin = 'Admin',
-  user = 'User' 
+  user = 'User'
 };
 
 export interface User {
@@ -27,10 +27,15 @@ export enum Status {
 };
 
 export interface PersonalInfo {
-  id: string,
+  _id: string,
   fullName: string,
   dob: string,
   gender: Gender,
+  status: Status
+}
+
+export interface UpdatePersonalInfo {
+  fullName: string,
   status: Status
 }
 
@@ -45,9 +50,9 @@ export interface Post {
   ownerId: string
 }
 
-export enum RelationType { 
+export enum RelationType {
   requested = 'Requested',
-  following = 'Following' 
+  following = 'Following'
 };
 
 export interface UserRelation {
@@ -59,4 +64,11 @@ export interface UserRelation {
 export interface UserRelationIds {
   userId: string,
   followerId: string
+}
+
+export interface ResponseType {
+  success: boolean,
+  statusCode: number,
+  data: any,
+  message: string
 }

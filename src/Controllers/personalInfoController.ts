@@ -1,29 +1,29 @@
 import { Request, Response } from 'express';
 import { PersonalInfoService } from '../Services';
-import { PersonalInfo } from '../Utils/Types'
+import { PersonalInfo, UpdatePersonalInfo } from '../Utils/Types'
 
 const personalInfoService = new PersonalInfoService();
 
-export default class ProfileInfoController {
+export default class PersonalInfoController {
     public async createPersonalInfo(req: Request, res: Response): Promise<void> {
         const body: PersonalInfo = req.body
         const result = await personalInfoService.createPersonalInfo(body);
         res.status(result.statusCode).json(result);
     }
-    public async getPersonalInfo(req: Request, res: Response): Promise<void> {
+    public async getPersonalInfoByUserId(req: Request, res: Response): Promise<void> {
         const id = req.params.id;
-        const result = await personalInfoService.getPersonalInfo(id);
+        const result = await personalInfoService.getPersonalInfoByUserId(id);
         res.status(result.statusCode).json(result);
     }
-    public async updatePersonalInfo(req: Request, res: Response): Promise<void> {
+    public async updatePersonalInfoByUserId(req: Request, res: Response): Promise<void> {
         const id = req.params.id;
-        const body: PersonalInfo = req.body
-        let result = await personalInfoService.updatePersonalInfo(id, body);
+        const body: UpdatePersonalInfo = req.body
+        let result = await personalInfoService.updatePersonalInfoByUserId(id, body);
         res.status(result.statusCode).json(result);
     }
-    public async deletePersonalInfo(req: Request, res: Response): Promise<void> {
+    public async deletePersonalInfoByUserId(req: Request, res: Response): Promise<void> {
         const id = req.params.id;
-        let result = await personalInfoService.deletePersonalInfo(id);
+        let result = await personalInfoService.deletePersonalInfoByUserId(id);
         res.status(result.statusCode).json(result);
     }
 }

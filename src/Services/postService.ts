@@ -1,6 +1,6 @@
 import { PostDao, UserDao, UserRelationDao } from "../Dao";
 import { Post } from "../Utils/Types";
-import { Response } from "../Utils/Response";
+import { Response, RESPONSE_MEESAGE } from "../Utils/Response";
 
 export default class PostService {
     private postDao: PostDao;
@@ -130,16 +130,16 @@ export default class PostService {
         try {
             let user = await this.userDao.getUserByUserId(userId);
             console.log('return value from getUserByUserId: existingPost: ', user);
-            if (!user && !user._id) {
+            if (!user) {
                 console.log('return from deleteAllPostsByUserId service', user);
-                return Response.fileNotFound();
+                return Response.notFound(RESPONSE_MEESAGE['USER_NOT_FOUND']);
             }
             const deletedPosts = await this.postDao.deleteAllPostsByUserId(userId);
-            console.log('return from deleteAllPostsByUserId service', Object.assign([], deletedPosts));
-            return Response.success(Object.assign([], deletedPosts));
+            console.log('return from deleteAllPostsByUserId service', deletedPosts);
+            return Response.success(RESPONSE_MEESAGE['POSTS_DELETED_SUCCESSFULLY']);
         } catch (error) {
-            console.log('return from deleteAllPostsByUserId service', error);
-            return Response.badRequest(error.message);
+            console.log('error from deleteAllPostsByUserId service', error);
+            return Response.badRequest(RESPONSE_MEESAGE['FAILED_TO_DELETE_POSTS']);
         }
     }
 

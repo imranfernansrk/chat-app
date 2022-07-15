@@ -12,7 +12,7 @@ export class UserRelationDao {
             });
             const data = await newUserRelation.save();
             console.log('createUserRelation dao successfully', data);
-            return data;
+            return data && data.toObject();
         } catch (error) {
             console.log('Error in createUserRelation dao', error);
             return error.message;
@@ -23,7 +23,7 @@ export class UserRelationDao {
         try {
             const relationData = await UserRelationModel.findById(id);
             console.log('return of getUserRelationById dao', relationData);
-            return relationData;
+            return relationData && relationData.toObject();
         } catch (error) {
             console.log('Error in getUserRelationById dao', error);
             return error.message;
@@ -34,7 +34,7 @@ export class UserRelationDao {
         try {
             const relationData = await UserRelationModel.findOne(data);
             console.log('return of getUserRelationByIds dao', relationData);
-            return relationData;
+            return relationData && relationData.toObject();
         } catch (error) {
             console.log('Error in getUserRelationByIds dao', error);
             return error.message;
@@ -92,7 +92,7 @@ export class UserRelationDao {
         try {
             const updatedUserRelation = await UserRelationModel.findByIdAndUpdate(id, { type });
             console.log('Return from findByIdAndUpdate', updatedUserRelation);
-            return updatedUserRelation;
+            return updatedUserRelation && updatedUserRelation.toObject();
         } catch (error) {
             console.log('Error in updateUserRelationTypeById dao', error);
             return error.message;
@@ -103,7 +103,7 @@ export class UserRelationDao {
         try {
             const deletedUserRelation = await UserRelationModel.findByIdAndDelete(id);
             console.log('Return from findByIdAndDelete', deletedUserRelation);
-            return deletedUserRelation;
+            return deletedUserRelation && deletedUserRelation.toObject();
         } catch (error) {
             console.log('Error in deleteUserRelationById dao', error);
             return error.message;
@@ -116,9 +116,8 @@ export class UserRelationDao {
             console.log('Return value of deleteMany: deletedfollowers: ', deletedfollowers);
             const deletedfollowing = await UserRelationModel.deleteMany({followerId: userId});
             console.log('Return value of deleteMany: deletedfollowing: ', deletedfollowing);
-            const deletedRelations = Object.assign(deletedfollowers, deletedfollowing);
-            console.log('Return from deleteUserRelationById', deletedRelations);
-            return deletedRelations;
+            console.log('Return from deleteUserRelationById', userId);
+            return userId;
         } catch (error) {
             console.log('Error in deleteUserRelationById dao', error);
             return error.message;

@@ -8,7 +8,8 @@ const UserSchema: Schema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        select: false
     },
     email: {
         type: String,
@@ -19,6 +20,6 @@ const UserSchema: Schema = new mongoose.Schema({
         enum: UserRoles,
         required: true
     }
-})
+}, { timestamps: true })
 
 export default mongoose.model('users', UserSchema)

@@ -1,19 +1,19 @@
 import { Application } from "express";
-import { ProfileInfoController } from '../Controllers'
+import { PersonalInfoController } from '../Controllers'
 import { Auth } from "../Auth/Authentication";
 
 class PersonalInfoRoutes {
-    private personalInfoController: ProfileInfoController;
+    private personalInfoController: PersonalInfoController;
     private auth: Auth;
     constructor() { 
-        this.personalInfoController = new ProfileInfoController();
+        this.personalInfoController = new PersonalInfoController();
         this.auth = new Auth();
     }
 
     public initialRoutes(application: Application) {
-        application.route('/personalInfo').post(this.auth.checkValidUser, this.personalInfoController.createPersonalInfo);
-        application.route('/personalInfo/:id').get(this.auth.checkValidUser, this.personalInfoController.getPersonalInfo);
-        application.route('/personalInfo/:id').put(this.auth.checkValidUser, this.personalInfoController.updatePersonalInfo);
+        application.route('/personal-info').post(this.auth.checkValidUser, this.personalInfoController.createPersonalInfo);
+        application.route('/personal-info/:id').get(this.auth.checkValidUser, this.personalInfoController.getPersonalInfoByUserId);
+        application.route('/personal-info/:id').put(this.auth.checkValidUser, this.personalInfoController.updatePersonalInfoByUserId);
     }
 }
 

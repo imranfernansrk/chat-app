@@ -9,10 +9,12 @@ export class UserDao {
                 username: data.username,
                 email: data.email,
                 password: data.password,
+                role: data.role
             });
-            const user = await newUser.save();
+            await newUser.save();
+            const user = await UserModel.findOne({ username: data.username });
             console.log('createUser dao successfully', user);
-            return user;
+            return user && user.toObject();
         } catch (error) {
             console.log('Error in createUser dao', error);
             return error.message;
@@ -21,9 +23,9 @@ export class UserDao {
     public async getUserByUsername(data: string) {
         console.log('getUserByUsername dao input data', data);
         try {
-            const user = await UserModel.findOne({ username: data });
+            const user = await UserModel.findOne({ username: data }).select("+password");
             console.log('return of findOne dao', user);
-            return user;
+            return user && user.toObject();
         } catch (error) {
             console.log('Error in getUserByUsername dao', error);
             return error.message;
@@ -34,7 +36,7 @@ export class UserDao {
         try {
             const user = await UserModel.findById(id);
             console.log('return from findById dao', user);
-            return user;
+            return user && user.toObject();
         } catch (error) {
             console.log('Error in getUserByUserId dao', error);
             return error.message;
@@ -46,7 +48,7 @@ export class UserDao {
         try {
             const updatedUser = await UserModel.findByIdAndUpdate(id, data);
             console.log('Return from findByIdAndUpdate', updatedUser);
-            return updatedUser;
+            return updatedUser && updatedUser.toObject();
         } catch (error) {
             console.log('Error in updateUserPassword dao', error);
             return error.message;
@@ -57,7 +59,7 @@ export class UserDao {
         try {
             const deletedUser = await UserModel.findByIdAndDelete(id);
             console.log('Return from deleteOne', deletedUser);
-            return deletedUser;
+            return deletedUser && deletedUser.toObject();
         } catch (error) {
             console.log('Error in deleteUserById dao', error);
             return error.message;

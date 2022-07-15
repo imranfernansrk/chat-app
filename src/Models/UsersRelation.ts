@@ -11,6 +11,6 @@ const UsersRelationSchema: Schema = new mongoose.Schema({
         enum: RelationType,
         required: true
     }
-})
+}, { timestamps: true })
 
 export default mongoose.model('usersRelation', UsersRelationSchema)

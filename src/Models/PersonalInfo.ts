@@ -2,6 +2,10 @@ import mongoose, { Schema } from 'mongoose';
 import { Gender, Status } from '../Utils/Types';
 
 const PersonalInfoSchema: Schema = new mongoose.Schema({
+    _id: {
+        type: mongoose.Types.ObjectId,
+        require: true
+    },
     fullName: {
         type: String,
         required: true
@@ -20,6 +24,6 @@ const PersonalInfoSchema: Schema = new mongoose.Schema({
         enum: Status,
         required: true
     }
-})
+}, { timestamps: true })
 
 export default mongoose.model('personalInfo', PersonalInfoSchema)

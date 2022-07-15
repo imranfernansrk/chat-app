@@ -1,6 +1,27 @@
 import { statusCode } from "./statusCodes";
+import { ResponseType } from "./Types";
+export const RESPONSE_MEESAGE = {
+  USER_DELETED_SUCCESSFULLY: "User deleted successfully",
+  FAILED_TO_DELETE_USER: "Failed to delete user",
+  FAILED_TO_DELETE_USER_RELATION: "Failed to delete user relation",
+  POSTS_DELETED_SUCCESSFULLY: "Posts deleted successfully",
+  POST_DELETED_SUCCESSFULLY: "Post deleted successfully",
+  FAILED_TO_DELETE_POST: "Failed to delete post",
+  FAILED_TO_DELETE_POSTS: "Failed to delete posts",
+  USER_RELATION_DELETED_SUCCESSFULLY: "User relation deleted successfully",
+  PERSONAL_INFO_NOT_FOUND: "Personal info not found",
+  PERSONAL_INFO_ALREADY_EXISTED: "Personal info already existed",
+  PERSONAL_INFO_DELETED_SUCCESSFULLY: "Personal info deleted successfully",
+  FAILED_TO_CREATE_PERSONAL_INFO: "Failed to create personal info",
+  FAILED_TO_DELETE_PERSONAL_INFO: "Failed to delete personal info",
+  USER_NOT_FOUND: "User not found",
+  POST_NOT_FOUND: "Post not found",
+  PASSWORD_INCORRECT: "Password incorrect",
+  USER_ALREADY_EXISTED: "User already existed"
+}
+
 export class Response {
-  public static success(data: any) {
+  public static success(data: any): ResponseType {
     return {
       success: true,
       statusCode: statusCode.success,
@@ -8,7 +29,31 @@ export class Response {
       message: 'Success'
     };
   }
-  public static fileNotFound() {
+  public static userNotFound(): ResponseType {
+    return {
+      success: false,
+      statusCode: statusCode.fileNotFound,
+      data: null,
+      message: 'User not found',
+    };
+  }
+  public static infoNotFound(): ResponseType {
+    return {
+      success: false,
+      statusCode: statusCode.fileNotFound,
+      data: null,
+      message: 'Personal info not found',
+    };
+  }
+  public static notFound(message: string): ResponseType {
+    return {
+      success: false,
+      statusCode: statusCode.fileNotFound,
+      data: null,
+      message: message,
+    };
+  }
+  public static fileNotFound(): ResponseType {
     return {
       success: false,
       statusCode: statusCode.fileNotFound,
@@ -16,7 +61,7 @@ export class Response {
       message: 'File not found',
     };
   }
-  public static internalServerError() {
+  public static internalServerError(): ResponseType {
     return {
       success: false,
       statusCode: statusCode.internalServerError,
@@ -25,7 +70,7 @@ export class Response {
     };
   }
 
-  public static badRequest(message: string) {
+  public static badRequest(message: string): ResponseType {
     return {
       success: false,
       statusCode: statusCode.badRequest,

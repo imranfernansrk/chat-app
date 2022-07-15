@@ -11,15 +11,15 @@ class UserRoutes {
     }
 
     public initialRoutes(application: Application) {
-        application.route('/user').get((req, res) => {
+        application.route('/health-user').get((req, res) => {
             console.log('req : ', req);
-            res.send('Success')
+            res.send('user health check success')
         });
-        application.route('/createUser').post(this.userController.createUser);
-        application.route('/createAdminUser').post(this.userController.createAdminUser);
-        application.route('/signin').post(this.userController.signin);
-        application.route('/updatePassword/:id').put(this.auth.checkValidUser, this.userController.updatePassword);
-        application.route('/deleteUser/:id').delete(this.auth.checkValidUser, this.userController.deleteUser);
+        application.route('/create-user').post(this.userController.createUser);
+        application.route('/create-admin-user').post(this.userController.createAdminUser);
+        application.route('/sign-in').post(this.userController.signin);
+        application.route('/update-password/:id').put(this.auth.checkValidUser, this.userController.updatePassword);
+        application.route('/delete-user/:id').delete(this.auth.checkValidUser, this.userController.deleteUser);
     }
 }
 

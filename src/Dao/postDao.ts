@@ -12,7 +12,7 @@ export class PostDao {
             });
             const postData = await newPost.save();
             console.log('createPost dao successfully', postData);
-            return postData;
+            return postData && postData.toObject();
         } catch (error) {
             console.log('Error in createPost dao', error);
             return error.message;
@@ -34,7 +34,7 @@ export class PostDao {
         try {
             const posts = await PostModel.find().where('ownerId').in(userIds).exec();
             console.log('return of getAllPostsByUserIds dao', posts);
-            return posts;
+            return posts && posts;
         } catch (error) {
             console.log('Error in getAllPostsByUserIds dao', error);
             return error.message;
@@ -45,7 +45,7 @@ export class PostDao {
         try {
             const post = await PostModel.findById(id);
             console.log('return from findById dao', post);
-            return post;
+            return post && post.toObject();
         } catch (error) {
             console.log('Error in getPostById dao', error);
             return error.message;
@@ -57,7 +57,7 @@ export class PostDao {
         try {
             const updatedPost = await PostModel.findByIdAndUpdate(id, { caption });
             console.log('Return from findByIdAndUpdate', updatedPost);
-            return updatedPost;
+            return updatedPost && updatedPost.toObject();
         } catch (error) {
             console.log('Error in updatePostCaptionById dao', error);
             return error.message;
@@ -68,7 +68,7 @@ export class PostDao {
         try {
             const deletedPost = await PostModel.findByIdAndDelete(id);
             console.log('Return from deleteOne', deletedPost);
-            return deletedPost;
+            return deletedPost && deletedPost.toObject();
         } catch (error) {
             console.log('Error in deletePostById dao', error);
             return error.message;

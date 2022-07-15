@@ -1,6 +1,6 @@
 import { UserRelationDao, UserDao } from "../Dao";
 import { UserRelationIds, RelationType } from "../Utils/Types";
-import { Response } from "../Utils/Response";
+import { Response, RESPONSE_MEESAGE } from "../Utils/Response";
 
 export default class UserRelationService {
     private userRelationDao: UserRelationDao;
@@ -134,16 +134,16 @@ export default class UserRelationService {
         try {
             let existingUser = await this.userDao.getUserByUserId(userId);
             console.log('return val from getUserByUserId method: existingUser: ', existingUser);
-            if (!existingUser && !existingUser._id) {
+            if (!existingUser) {
                 console.log('return deleteAllUserRelationByUserId service', existingUser);
-                return Response.fileNotFound();
+                return Response.notFound(RESPONSE_MEESAGE['USER_NOT_FOUND']);
             }
             const deletedRelations = await this.userRelationDao.deleteAllUserRelationByUserId(existingUser._id);
             console.log('return from deleteAllUserRelationByUserId service', deletedRelations);
-            return Response.success(deletedRelations);
+            return Response.success(RESPONSE_MEESAGE['USER_RELATION_DELETED_SUCCESSFULLY']);
         } catch (error) {
-            console.log('return from deleteAllUserRelationByUserId service', error);
-            return Response.badRequest(error.message);
+            console.log('error from deleteAllUserRelationByUserId service', error);
+            return Response.badRequest(RESPONSE_MEESAGE['FAILED_TO_DELETE_USER_RELATION']);
         }
     }
 }

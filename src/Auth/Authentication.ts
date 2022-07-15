@@ -18,7 +18,7 @@ const getIdFromRequest = {
 
 export class Auth {
     constructor(){}
-    private getToken(authHeader: string) {
+    public getToken(authHeader: string) {
         //BEARER TOKEN
         if (!authHeader){
             return null;
@@ -30,7 +30,7 @@ export class Auth {
         }
         return token;
     }
-    private getUserIdFromToken(token: string) {
+    public getUserIdFromToken(token: string) {
         const getUser: any = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET_KEY);
         if (!getUser && !getUser.user) {
             return null;
@@ -39,16 +39,22 @@ export class Auth {
     }
     public checkValidUser(req: Req, res: Res, next: Next) {
         const authHeader = req.header('Authorization');
-        const token = this.getToken(authHeader);
+        console.log('authHeader: ', authHeader);
+        if (!authHeader){
+            return res.status(400).json(Response.badRequest('Auth Header Not Found'));
+        } 
+        const token = authHeader.split(' ')[1];
+        console.log("split auth token from header", token);
         if(!token){
             return res.status(400).json(Response.badRequest('Auth Token Not Found'));
         }
         try {
-            const userId = this.getUserIdFromToken(token);
-            if(!userId){
-                return res.status(400).json(Response.badRequest('Invalid Auth Token'));
+            // const userId = this.getUserIdFromToken(token);
+            const jwtObject: any = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET_KEY);
+            if (!jwtObject && !jwtObject.user) {
+                res.status(400).json(Response.badRequest('Invalid Auth Token'));
             }
-            req["userId"] = userId;
+            req["userId"] = jwtObject.userId;
             next();
         } catch (e) {
             res.status(400).json(Response.badRequest('Invalid Auth Token'));
