@@ -55,7 +55,8 @@ export class PostDao {
         console.log('updatePostCaptionById dao input id', id);
         console.log('updatePostCaptionById dao input caption', caption);
         try {
-            const updatedPost = await PostModel.findByIdAndUpdate(id, { caption });
+            await PostModel.findByIdAndUpdate(id, { caption });
+            const updatedPost = await PostModel.findById(id);
             console.log('Return from findByIdAndUpdate', updatedPost);
             return updatedPost && updatedPost.toObject();
         } catch (error) {
@@ -68,7 +69,7 @@ export class PostDao {
         try {
             const deletedPost = await PostModel.findByIdAndDelete(id);
             console.log('Return from deleteOne', deletedPost);
-            return deletedPost && deletedPost.toObject();
+            return deletedPost;
         } catch (error) {
             console.log('Error in deletePostById dao', error);
             return error.message;

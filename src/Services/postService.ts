@@ -17,16 +17,16 @@ export default class PostService {
         try {
             let user = await this.userDao.getUserByUserId(data.ownerId);
             console.log('return value from getUserByUserId: user: ', user);
-            if (!user && !user._id) {
+            if (!user?._id) {
                 console.log('return from createPost service', user);
-                return Response.fileNotFound();
+                return Response.notFound(RESPONSE_MEESAGE['USER_NOT_FOUND']);
             }
             const newPost = await this.postDao.createPost(data);
-            console.log('return from createPost service', Object.assign({}, newPost));
-            return Response.success(Object.assign({}, newPost));
+            console.log('return from createPost service', newPost);
+            return Response.success(newPost);
         } catch (error) {
             console.log('return from createPost service', error);
-            return Response.badRequest(error.message);
+            return Response.badRequest(RESPONSE_MEESAGE['FAILED_TO_CREATE_POST']);
         }
     }
 
@@ -34,8 +34,12 @@ export default class PostService {
         console.log('getPostById service input ownerId', id);
         try {
             let post = await this.postDao.getPostById(id);
-            console.log('return from getPostById service', Object.assign({}, post));
-            return Response.success(Object.assign({}, post));
+            if (!post?._id) {
+                console.log('return from getPostById service', post);
+                return Response.notFound(RESPONSE_MEESAGE['POST_NOT_FOUND']);
+            }
+            console.log('return from getPostById service', post);
+            return Response.success(post);
         } catch (error) {
             console.log('return from getPostById service', error);
             return Response.badRequest(error.message);
@@ -47,13 +51,13 @@ export default class PostService {
         try {
             let user = await this.userDao.getUserByUserId(ownerId);
             console.log('return value from getUserByUserId: user: ', user);
-            if (!user && !user._id) {
+            if (!user?._id) {
                 console.log('return from getAllPostsByOwnerId service', user);
-                return Response.fileNotFound();
+                return Response.notFound(RESPONSE_MEESAGE['USER_NOT_FOUND']);
             }
             const posts = await this.postDao.getAllPostsByOwnerId(ownerId);
-            console.log('return from getAllPostsByOwnerId service', Object.assign([], posts));
-            return Response.success(Object.assign([], posts));
+            console.log('return from getAllPostsByOwnerId service', posts);
+            return Response.success(posts);
         } catch (error) {
             console.log('return from getAllPostsByOwnerId service', error);
             return Response.badRequest(error.message);
@@ -94,16 +98,16 @@ export default class PostService {
         try {
             let existingPost = await this.postDao.getPostById(id);
             console.log('return value from getPostById: existingPost: ', existingPost);
-            if (!existingPost && !existingPost._id) {
+            if (!existingPost?._id) {
                 console.log('return from updatePostCaptionById service', existingPost);
-                return Response.fileNotFound();
+                return Response.notFound(RESPONSE_MEESAGE['POST_NOT_FOUND']);
             }
             const updatedPost = await this.postDao.updatePostCaptionById(id, caption);
-            console.log('return from updatePostCaptionById service', Object.assign({}, updatedPost));
-            return Response.success(Object.assign({}, updatedPost));
+            console.log('return from updatePostCaptionById service', updatedPost);
+            return Response.success(updatedPost);
         } catch (error) {
             console.log('return from updatePostCaptionById service', error);
-            return Response.badRequest(error.message);
+            return Response.badRequest(RESPONSE_MEESAGE['FAILED_TO_UPDATE_POST']);
         }
     }
 
@@ -112,16 +116,16 @@ export default class PostService {
         try {
             let existingPost = await this.postDao.getPostById(id);
             console.log('return value from getPostById: existingPost: ', existingPost);
-            if (!existingPost && !existingPost._id) {
+            if (!existingPost?._id) {
                 console.log('return from deletePostById service', existingPost);
-                return Response.fileNotFound();
+                return Response.notFound(RESPONSE_MEESAGE['POST_NOT_FOUND']);
             }
             const deletedPost = await this.postDao.deletePostById(id);
-            console.log('return from deletePostById service', Object.assign({}, deletedPost));
-            return Response.success(Object.assign({}, deletedPost));
+            console.log('return from deletePostById service', deletedPost);
+            return Response.success(RESPONSE_MEESAGE['POST_DELETED_SUCCESSFULLY']);
         } catch (error) {
             console.log('return from deletePostById service', error);
-            return Response.badRequest(error.message);
+            return Response.badRequest(RESPONSE_MEESAGE['FAILED_TO_DELETE_POST']);
         }
     }
 
@@ -130,7 +134,7 @@ export default class PostService {
         try {
             let user = await this.userDao.getUserByUserId(userId);
             console.log('return value from getUserByUserId: existingPost: ', user);
-            if (!user) {
+            if (!user?._id) {
                 console.log('return from deleteAllPostsByUserId service', user);
                 return Response.notFound(RESPONSE_MEESAGE['USER_NOT_FOUND']);
             }

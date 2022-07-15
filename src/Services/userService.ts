@@ -114,7 +114,7 @@ export default class UserService {
         try {
             const user = await this.userDao.getUserByUserId(id);
             console.log('return of getUser method', user);
-            if (!user) {
+            if (!user?._id) {
                 console.log('return from updateUserPassword service', user);
                 return Response.userNotFound();
             }
@@ -156,7 +156,7 @@ export default class UserService {
         try {
             const user = await this.userDao.getUserByUserId(id);
             console.log('return of getUser method', user);
-            if (!user) {
+            if (!user?._id) {
                 console.log('return from deleteUserById service', user);
                 return Response.notFound(RESPONSE_MEESAGE['USER_NOT_FOUND']);
             }

@@ -6,6 +6,8 @@ export const RESPONSE_MEESAGE = {
   FAILED_TO_DELETE_USER_RELATION: "Failed to delete user relation",
   POSTS_DELETED_SUCCESSFULLY: "Posts deleted successfully",
   POST_DELETED_SUCCESSFULLY: "Post deleted successfully",
+  FAILED_TO_UPDATE_POST: "Failed to update post",
+  FAILED_TO_CREATE_POST: "Failed to create post",
   FAILED_TO_DELETE_POST: "Failed to delete post",
   FAILED_TO_DELETE_POSTS: "Failed to delete posts",
   USER_RELATION_DELETED_SUCCESSFULLY: "User relation deleted successfully",

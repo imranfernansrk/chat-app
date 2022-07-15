@@ -15,7 +15,7 @@ const PostSchema: Schema = new mongoose.Schema({
             required: true
         }
     },
-    postedBy: {
+    ownerId: {
         type: String,
         required: true
     }

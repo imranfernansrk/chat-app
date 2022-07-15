@@ -17,7 +17,7 @@ export default class UserRelationService {
             let follower = await this.userDao.getUserByUserId(data.followerId);
             console.log('check user and follower: user: ', user);
             console.log('check user and follower: follower: ', follower);
-            if (!user && !user._id || !follower && !follower._id) {
+            if (!user?._id || !follower?._id) {
                 console.log('return from createUserRelation service');
                 return Response.fileNotFound();
             }
@@ -134,7 +134,7 @@ export default class UserRelationService {
         try {
             let existingUser = await this.userDao.getUserByUserId(userId);
             console.log('return val from getUserByUserId method: existingUser: ', existingUser);
-            if (!existingUser) {
+            if (!existingUser?._id) {
                 console.log('return deleteAllUserRelationByUserId service', existingUser);
                 return Response.notFound(RESPONSE_MEESAGE['USER_NOT_FOUND']);
             }

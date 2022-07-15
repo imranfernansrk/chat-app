@@ -11,13 +11,14 @@ class PostRoutes {
     }
 
     public initialRoutes(application: Application) {
-        application.route('/createPost').post(this.auth.checkValidUser, this.postController.createPost);
+        application.route('/create-post').post(this.auth.checkValidUser, this.postController.createPost);
         application.route('/post/:id').get(this.auth.checkValidUser, this.postController.getPostById);
-        application.route('/userFeeds/:id').get(this.auth.checkValidUser, this.postController.getUserFeedsByUserId);
+        //needs to test user-feeds api
+        application.route('/user-feeds/:id').get(this.auth.checkValidUser, this.postController.getUserFeedsByUserId);
         application.route('/posts/:id').get(this.auth.checkValidUser, this.postController.getAllPostsByOwnerId);
         application.route('/post/:id').put(this.auth.checkValidUser, this.postController.updatePostCaptionById);
-        application.route('/deletePost/:id').delete(this.auth.checkValidUser, this.postController.deletePostById);
-        application.route('/deleteAllPosts/:id').delete(this.auth.checkValidUser, this.postController.deleteAllPostsByUserId);
+        application.route('/delete-post/:id').delete(this.auth.checkValidUser, this.postController.deletePostById);
+        application.route('/delete-all-posts/:id').delete(this.auth.checkValidUser, this.postController.deleteAllPostsByUserId);
     }
 }
 
